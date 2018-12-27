@@ -1,6 +1,6 @@
 const login = require("../index")({});
 const fs = require("fs");
-login({ user: 'CT030208', pass: 'cuongdeptrai' }, function(error, api) {
+login({ user: '', pass: '' }, function(error, api) {
     // api.studyRegister.showCourse(function( courses ) {
     //     console.log(courses)
     // })
