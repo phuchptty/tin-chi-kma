@@ -8,7 +8,7 @@ module.exports = function({ request, utils, HOST_API }) {
                         return { name: $(element).text(), value: $(element).attr('value') };
 
                     })
-                    if (typeof callback == "function") callback({ courses, $ });
+                    if (typeof callback == "function") callback(courses);
                     return $;
                 })
         },
