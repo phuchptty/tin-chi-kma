@@ -6,11 +6,11 @@ const parseInitialFormData = ($) => {
     let data = {};
 
     input.each((i, elem) => {
-        data[$(elem).attr('name')] = $(elem).attr('value');
+        if ($(elem).attr('name')) data[$(elem).attr('name')] = $(elem).attr('value');
     });
 
     select.each((i, elem) => {
-        data[$(elem).attr('name')] = $(elem).find($('[selected="selected"]')).attr('value');
+        if ($(elem).attr('name')) data[$(elem).attr('name')] = $(elem).find($('[selected="selected"]')).attr('value');
     });
 
     return data;
@@ -21,25 +21,23 @@ const parseSelector = ($) => {
     let select = form.find('select');
 
     select.each((i, elem) => {
-        let options = $(elem).find($('option'));
-        let cooked_options = [];
+        let options = $(elem).find($('option[selected]'))[0];
+        // let cooked_options = options.find((option) => $(option).attr('selected') ? true: false)[0];
 
-        options.each((i, option) => {
-            option = $(option);
-
-            cooked_options.push({
-                value: option.attr('value'),
-                text: option.text(),
-                selected: option.attr('selected') ? true : false
-            });
-        });
-
-        data[$(elem).attr('name')] = cooked_options;
+        data[$(elem).attr('name')] = options && $(options).attr('value') || undefined;
     });
 
     return data;
 }
+const parseString = function(string) {
+    let str = escape(string);
+    str = str
+        .replace(/%09+/g, '')
+        .replace(/^%0A+|%0A+$/g, '')
+    return unescape(str).trim(/\s+|\n+/);
+}
 module.exports = {
     parseInitialFormData,
+    parseString,
     parseSelector
 }

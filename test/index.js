@@ -1,4 +1,11 @@
 const login = require("../index")({});
-login({user: 'CT030208', pass: 'cuongdeptra'},function(error, api){
-    console.log(error, api);
+const utils = require("../utils")
+login({ user: 'CT030208', pass: 'cuongdeptrai' }, function(error, api) {
+    api.studyRegister.showCourse(function({ courses }) {
+        console.log(courses)
+    })
+
+    api.studyRegister.getCourse({ drpCourse: 'F92A602603194878848995D7E10CF3C8' }, function(classes) {
+        console.log(classes)
+    })
 })
