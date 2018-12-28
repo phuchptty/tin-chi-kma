@@ -4,10 +4,12 @@ module.exports = function({ request, utils, HOST_API }) {
         async downloadTimeTable({ semester }, callback = f => f) {
             let { $ } = await this.get$();
             let selectorData = utils.parseSelector($);
+            
+            let initialFormData = utils.parseInitialFormData($);
             selectorData.drpTerm = 1;
             selectorData.drpSemester = semester || selectorData.drpSemester;
             selectorData.drpType = 'B';
-            let initialFormData = utils.parseInitialFormData($);
+            selectorData.btnView = "Xuất file Excel";
             request.post({
                 url: `${HOST_API}/CMCSoft.IU.Web.Info/Reports/Form/StudentTimeTable.aspx`,
                 form: {

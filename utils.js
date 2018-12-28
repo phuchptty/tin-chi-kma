@@ -1,18 +1,21 @@
 const parseInitialFormData = ($) => {
     let form = $('form');
     let select = form.find('select');
-    let input = form.find('input');
+    let input = form.find('input[type!="submit"][type!="checkbox"]');
 
     let data = {};
 
     input.each((i, elem) => {
-        if ($(elem).attr('name')) data[$(elem).attr('name')] = $(elem).attr('value');
+        if ($(elem).attr('name')) data[$(elem).attr('name')] = $(elem).attr('value') || '';
     });
 
     select.each((i, elem) => {
         if ($(elem).attr('name')) data[$(elem).attr('name')] = $(elem).find($('[selected="selected"]')).attr('value');
     });
 
+    // for (let key in data) {
+    //     if (key.indexOf("btn") == 0) data[key] = undefined;
+    // }
     return data;
 }
 const parseSelector = ($) => {
@@ -26,6 +29,9 @@ const parseSelector = ($) => {
 
         data[$(elem).attr('name')] = options && $(options).attr('value') || undefined;
     });
+    // for (let key in data) {
+    //     if (key.indexOf("btn") == 0) data[key] = undefined;
+    // }
 
     return data;
 }
