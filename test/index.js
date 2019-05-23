@@ -1,6 +1,7 @@
 const login = require("../index")({});
 const fs = require("fs");
-login({ user: 'CT030201', pass: '10/01/2000' }, function(error, api) {
+login({ user: 'CT030208', pass: 'cuongnl5' }, function(error, api) {
+    if(error) return console.error(error);
     // api.studyRegister.showCourse(function(courses) {
     //     console.log(courses.length);
     //     api.studyRegister.getCourse({ drpCourse: courses[2].value }, function(classes, $) {
@@ -20,7 +21,8 @@ login({ user: 'CT030201', pass: '10/01/2000' }, function(error, api) {
     //     console.log(classes)
     // })
 
-    api.studentTimeTable.downloadTimeTable({ semester: 'f85b945085ee4b8898a30165ca1833ff' }, function(buffer) {
-        fs.writeFileSync('TKBSV.xls', buffer);
-    })
+    // api.studentTimeTable.downloadTimeTable({ semester: 'f85b945085ee4b8898a30165ca1833ff' }, function(buffer) {
+    //     fs.writeFileSync('TKBSV.xls', buffer);
+    // })
+    api.studentTimeTable.getSemester(console.log);
 })

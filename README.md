@@ -42,11 +42,12 @@ login({ user: '', pass: '' }, function(error, api) {
 Đăng nhập vào trang đăng ký tín chỉ.
    
 ```javascript
-login({user:'MA SINH VIEN', pass: 'Mat khau'},function(error,api){
-    /*
-    Biến error chứa lỗi, mang giá trị undefined nếu không có lỗi
-    Biến api là 1 object chứa các api hoặc undefined nếu bị lỗi*/
-})
+   login({user:'MA SINH VIEN', pass: 'Mat khau'},function(error,api){
+      /*
+        Biến error chứa lỗi, mang giá trị undefined nếu không có lỗi
+        Biến api là 1 object chứa các api hoặc undefined nếu bị lỗi
+      */
+   })
 ```
 
 
@@ -71,9 +72,10 @@ api lấy thông tin về các môn học
 api lấy các lớp học của môn học đó
 
 ```javascript
-api.studyRegister.getCourse({ drpCourse: 'GIA_TRI_VALUE_TREN_KIA' }, function(classes) {
+    api.studyRegister.getCourse({ drpCourse: 'GIA_TRI_VALUE_TREN_KIA' }, function(classes) {
         /*
-        classes là mảng chứa các object về thông tin các lớp học*/
+        classes là mảng chứa các object về thông tin các lớp học
+        */
     })
 ```
 
@@ -81,6 +83,17 @@ api.studyRegister.getCourse({ drpCourse: 'GIA_TRI_VALUE_TREN_KIA' }, function(cl
 
 ### api.studentTimeTable
 các api liên quan đến thời khóa biểu
+
+#### api.studyRegister.getSemester
+api lấy các học kỳ
+
+```javascript
+    api.studyRegister.getSemester(function(semesters) {
+        /*
+        semesters là mảng chứa các object về thông tin các học kỳ
+        */
+    })
+```
 
 #### api.studentTimeTable.downloadTimeTable
 api tải về thời khóa biểu
