@@ -1,10 +1,10 @@
 {
   "name": "tin-chi-kma",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Library to connect with CMCSoft System ",
   "main": "index.js",
   "scripts": {
-    "test": "node test/"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "md5": "^2.2.1",
+    "mocha": "^6.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   }

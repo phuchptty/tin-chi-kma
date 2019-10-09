@@ -1,7 +1,7 @@
 # TIN-CHI-KMA
 
 Module tích hợp để tương tác với hệ thống đăng ký tín chỉ của CMCSoft .
-Ví dụ: 
+Ví dụ:
 
 [ĐẠI HỌC HÀNG HẢI](http://dktt.vimaru.edu.vn/CMCSoft.IU.Web.info/Login.aspx)
 
@@ -30,9 +30,9 @@ npm install --save Notekunn/tin-chi-kma
 Khởi tạo api như sau:
 
 ```javascript
-const login = require("../index")({ HOST_API: 'HOST_API CUA BAN' });
+const login = require("tin-chi-kma")({ HOST_API: 'HOST_API CUA BAN' });
 login({ user: '', pass: '' }, function(error, api) {
-      
+
 })
 
 ```
@@ -40,7 +40,7 @@ login({ user: '', pass: '' }, function(error, api) {
 
 ## LOGIN
 Đăng nhập vào trang đăng ký tín chỉ.
-   
+
 ```javascript
    login({user:'MA SINH VIEN', pass: 'Mat khau'},function(error,api){
       /*
