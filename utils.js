@@ -77,6 +77,10 @@ const requestWithLogin = requestPm.defaults({
     },
 })
 const createJar = requestPm.jar;
+const initRequest = (jar, HOST_API) => requestWithoutLogin({
+    url: `${HOST_API}/CMCSoft.IU.Web.Info/Login.aspx`,
+    jar,
+})
 module.exports = {
     parseInitialFormData,
     parseString,
@@ -86,4 +90,5 @@ module.exports = {
     requestWithoutLogin,
     requestWithLogin,
     createJar,
+    initRequest
 }

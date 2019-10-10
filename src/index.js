@@ -1,11 +1,12 @@
 const md5 = require('md5');
 const cheerio = require("cheerio");
 const apiBuilds = [
-    'studyRegister',
-    'studentTimeTable'
+    // 'studyRegister',
+    // 'studentTimeTable',
 ];
 const login = require("./login");
-module.exports = function({ utils, config: { HOST_API } }) {
+module.exports = function({ utils, config }) {
+    const { HOST_API } = config;
     return async function(credentials, callback) {
         const jar = utils.createJar();
         try {
@@ -16,7 +17,7 @@ module.exports = function({ utils, config: { HOST_API } }) {
             await login(credentials, jar, $, HOST_API);
             const api = new Object();
             apiBuilds.map(e => {
-                // api[`${e}`] = require(`./${e}.js`)({ utils, HOST_API })
+                api[`${e}`] = require(`./${e}.js`)({ utils, config })
             })
             if (typeof callback === "function") {
                 callback(undefined, api);

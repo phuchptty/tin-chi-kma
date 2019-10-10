@@ -6,12 +6,10 @@ module.exports = (config = {}) => {
     const session = new Object();
     const init = async function() {
         try {
-            const $ = await utils.requestWithoutLogin({
-                url: `${config.HOST_API}/CMCSoft.IU.Web.Info/Login.aspx`,
-                jar
-            })
+            const $ = await utils.initRequest(jar, config.HOST_API);
             return { jar, $ };
         } catch (error) {
+            console.log(error.stack)
             return null;
         }
     }
