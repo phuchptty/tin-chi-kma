@@ -30,11 +30,10 @@ npm install --save Notekunn/tin-chi-kma
 Khởi tạo api như sau:
 
 ```javascript
-const login = require("tin-chi-kma")({ HOST_API: 'HOST_API CUA BAN' });
-login({ user: '', pass: '' }, function(error, api) {
+    const login = require("tin-chi-kma")({ HOST_API: 'HOST_API CUA BAN' });
+    login({ user: '', pass: '' }, function(error, api) {
 
-})
-
+    })
 ```
 
 
@@ -42,12 +41,16 @@ login({ user: '', pass: '' }, function(error, api) {
 Đăng nhập vào trang đăng ký tín chỉ.
 
 ```javascript
-   login({user:'MA SINH VIEN', pass: 'Mat khau'},function(error,api){
+   login({user:'MA SINH VIEN', pass: 'Mat khau'}, function(error,api){
       /*
         Biến error chứa lỗi, mang giá trị undefined nếu không có lỗi
         Biến api là 1 object chứa các api hoặc undefined nếu bị lỗi
       */
    })
+   // Hoặc
+   login({user:'MA SINH VIEN', pass: 'Mat khau'})
+    .then(api => {})
+    .catch(error => {})
 ```
 
 
@@ -56,27 +59,51 @@ login({ user: '', pass: '' }, function(error, api) {
 ### api.studyRegister
 Các api để đăng ký tín chỉ
 
-#### api.studyRegister.showCourse
+#### api.studyRegister.showAcademicYears
+api lấy các năm học(khóa học)
+
+```javascript
+   api.studyRegister.showAcademicYears(function(error, courses){
+       //do something with `courses`
+       /*
+       courses là 1 mảng chứa các object {name: 'Tên Khóa', value: drpAcademicYear}
+       */
+   })
+   //Hoặc
+   api.studyRegister.showAcademicYears()
+       .then()
+       .catch();
+```
+
+#### api.studyRegister.showCourses
 api lấy thông tin về các môn học
 
 ```javascript
-   api.studyRegister.showCourse(function(courses){
+   api.studyRegister.showCourses(drpAcademicYear, function(error, courses){
        //do something with `courses`
        /*
-       courses là 1 mảng chứa các object {name:'Tên Môn HỌC', value:'Giá trị để sử dụng cho api lấy danh sách lớp'}
+       courses là 1 mảng chứa các object {name: 'Tên Môn HỌC', value: drpCourse}
        */
    })
+   //Hoặc
+   api.studyRegister.showCourses(drpAcademicYear)
+       .then()
+       .catch();
 ```
 
-#### api.studyRegister.getCourse
+#### api.studyRegister.showClasses
 api lấy các lớp học của môn học đó
 
 ```javascript
-    api.studyRegister.getCourse({ drpCourse: 'GIA_TRI_VALUE_TREN_KIA' }, function(classes) {
+    api.studyRegister.showClasses(drpAcademicYear, drpCourse, function(error, classes) {
         /*
         classes là mảng chứa các object về thông tin các lớp học
         */
     })
+    //Hoặc
+    api.studyRegister.showClasses(drpAcademicYear, drpCourse)
+       .then()
+       .catch();
 ```
 
 
