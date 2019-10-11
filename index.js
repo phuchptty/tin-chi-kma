@@ -3,7 +3,6 @@ const jar = utils.createJar();
 
 module.exports = (config = {}) => {
     config = { ...utils.configDefault, ...config };
-    const session = new Object();
     const init = async function() {
         try {
             const $ = await utils.initRequest(jar, config.HOST_API);

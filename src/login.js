@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const utils = require("../utils");
-module.exports = function login(credentials, jar, $, HOST_API) {
+module.exports = async function login(credentials, jar, $, HOST_API) {
     if (!credentials.jar) {
         const formLogin = {
             ...utils.parseInitialFormData($),
@@ -16,7 +16,8 @@ module.exports = function login(credentials, jar, $, HOST_API) {
             method: "POST",
             jar,
         };
-        return utils.requestWithLogin(loginPost);
+        await utils.requestWithLogin(loginPost);
+        return jar;
     }
     else {
         const checkLogin = {
@@ -24,7 +25,8 @@ module.exports = function login(credentials, jar, $, HOST_API) {
             jar: credentials.jar,
             followAllRedirects: true,
         }
-        return utils.requestWithLogin(checkLogin);
+        await utils.requestWithLogin(checkLogin);
+        return credentials.jar;
     }
 
 }

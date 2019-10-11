@@ -73,8 +73,9 @@ const requestWithLogin = requestPm.defaults({
         const $ = cheerio.load(body);
         const userFullName = $('#PageHeader1_lblUserFullName').text().toLowerCase();
         if (userFullName == 'khách') return Promise.reject(Error('Vui lòng đăng nhập lại'));
-        return { $, body };
+        return $;
     },
+    followAllRedirects: true
 })
 const createJar = requestPm.jar;
 const initRequest = (jar, HOST_API) => requestWithoutLogin({
@@ -90,5 +91,5 @@ module.exports = {
     requestWithoutLogin,
     requestWithLogin,
     createJar,
-    initRequest
+    initRequest,
 }
