@@ -8,8 +8,8 @@ describe('Study Register', function() {
                 api = data;
             })
     });
-    describe("Get Academy Year", function() {
-        it('Show Academy Year', function(done) {
+    describe("Get Academy Years", function() {
+        it('Show Academy Years', function(done) {
             (async function() {
                 years = await api.studyRegister.showAcademicYears();
                 if (Array.isArray(years)) done();
@@ -17,10 +17,10 @@ describe('Study Register', function() {
             })();
         });
     });
-    describe("Show Course", function() {
-        it('showCourse of User', function(done) {
+    describe("Show Courses", function() {
+        it('Show Courses of User', function(done) {
             (async function() {
-                courses = await api.studyRegister.showCourse(years[years.length - 1].value);
+                courses = await api.studyRegister.showCourses(years[years.length - 1].value);
                 if (Array.isArray(courses)) done();
                 console.log(courses);
             })();
@@ -30,7 +30,7 @@ describe('Study Register', function() {
     describe("Get Course", function() {
         it('Get Class From Course', function(done) {
             (async function() {
-                const listClass = await api.studyRegister.getCourse(years[years.length - 1].value, courses[courses.length - 1].value);
+                const listClass = await api.studyRegister.showClasses(years[years.length - 1].value, courses[courses.length - 1].value);
                 if (Array.isArray(listClass)) done();
                 console.log(listClass);
             })();

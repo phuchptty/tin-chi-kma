@@ -44,7 +44,7 @@ module.exports = function({ api, utils, config }) {
         })
         return $;
     }
-    async function showCourse(drpAcademicYear, callback) {
+    async function showCourses(drpAcademicYear, callback) {
         try {
             let $ = await changeAcademicYear(drpAcademicYear);
             const courses = Array.from($('select[name="drpCourse"]').children('option[value!=""]')).map((element) => {
@@ -74,7 +74,7 @@ module.exports = function({ api, utils, config }) {
         })
     }
 
-    async function getCourse(drpAcademicYear, drpCourse, callback) {
+    async function showClasses(drpAcademicYear, drpCourse, callback) {
         const $ = await requestCourse(drpAcademicYear, drpCourse);
         const listClass = Array.from($('#gridRegistration > tbody > tr:not(:first-child)')).map(element => {
             const [valueInput, nameClass, codeClass, time, place, teacher, siso, soDK] = Array.from($(element).children('td:not(:first-child)')).map((e, i) => {
@@ -109,8 +109,8 @@ module.exports = function({ api, utils, config }) {
 
     return {
         showAcademicYears,
-        showCourse,
-        getCourse,
+        showCourses,
+        showClasses,
         registerCourse,
     }
 }
