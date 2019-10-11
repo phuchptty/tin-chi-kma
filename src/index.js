@@ -1,7 +1,5 @@
-const md5 = require('md5');
-const cheerio = require("cheerio");
 const apiBuilds = [
-    // 'studyRegister',
+    'studyRegister',
     // 'studentTimeTable',
 ];
 const login = require("./login");
@@ -10,14 +8,11 @@ module.exports = function({ utils, config }) {
     return async function(credentials, callback) {
         const jar = utils.createJar();
         try {
-            const $ = await utils.requestWithoutLogin({
-                url: `${HOST_API}/CMCSoft.IU.Web.Info/Login.aspx`,
-                jar,
-            })
-            await login(credentials, jar, $, HOST_API);
+            const $ = await utils.initRequest(jar, HOST_API);
             const api = new Object();
+            api.jar = await login(credentials, jar, $, HOST_API);
             apiBuilds.map(e => {
-                api[`${e}`] = require(`./${e}.js`)({ utils, config })
+                api[`${e}`] = require(`./${e}.js`)({ api, utils, config })
             })
             if (typeof callback === "function") {
                 callback(undefined, api);
