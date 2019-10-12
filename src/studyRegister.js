@@ -15,7 +15,7 @@ module.exports = function({ api, utils, config }) {
                 .map(e => Object({
                     value: $(e).attr('value'),
                     name: $(e).text(),
-                    selected: !!$(e).attr("selected"),
+                    // selected: !!$(e).attr("selected"),
                 }));
             if (typeof callback == "function") callback(null, years);
             else return Promise.resolve(years);

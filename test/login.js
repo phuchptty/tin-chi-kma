@@ -1,6 +1,8 @@
-var assert = require('assert');
 const login = require("../index")({});
 describe('Login', function() {
+    // before(function() {
+    //     this.skip();
+    // });
     describe("Undefined user/pass", function() {
         it('Can not login without user', tryLoginFail(undefined));
         it('Can not login without pass', tryLoginFail("CT0302008", undefined));
