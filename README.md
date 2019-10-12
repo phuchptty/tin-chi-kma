@@ -63,10 +63,9 @@ Các api để đăng ký tín chỉ
 api lấy các năm học(khóa học)
 
 ```javascript
-   api.studyRegister.showAcademicYears(function(error, courses){
-       //do something with `courses`
+   api.studyRegister.showAcademicYears(function(error, years){
        /*
-       courses là 1 mảng chứa các object {name: 'Tên Khóa', value: drpAcademicYear}
+       years là 1 mảng chứa các object { name: 'Tên Khóa', value: drpAcademicYear }
        */
    })
    //Hoặc
@@ -80,9 +79,8 @@ api lấy thông tin về các môn học
 
 ```javascript
    api.studyRegister.showCourses(drpAcademicYear, function(error, courses){
-       //do something with `courses`
        /*
-       courses là 1 mảng chứa các object {name: 'Tên Môn HỌC', value: drpCourse}
+       courses là 1 mảng chứa các object { name: 'Tên Môn HỌC', value: drpCourse }
        */
    })
    //Hoặc
@@ -111,25 +109,34 @@ api lấy các lớp học của môn học đó
 ### api.studentTimeTable
 các api liên quan đến thời khóa biểu
 
-#### api.studyRegister.getSemester
+#### api.studyRegister.showSemesters
 api lấy các học kỳ
 
 ```javascript
-    api.studyRegister.getSemester(function(semesters) {
+    api.studyRegister.showSemesters(function(error, semesters) {
         /*
         semesters là mảng chứa các object về thông tin các học kỳ
+           name: tên học kỳ
+           value: chuỗi hash
         */
     })
+    //Hoặc
+    api.studyRegister.showSemesters()
+        .then()
+        .catch();
 ```
 
-#### api.studentTimeTable.downloadTimeTable
-api tải về thời khóa biểu
+#### api.studentTimeTable.showTimeTable
+api lấy thời khóa biểu
 
 ```javascript
-    api.studentTimeTable.downloadTimeTable({ semester: 'GIA_TRI_VALUE_CUA_NAM_HOC'/*hoặc để undefined nếu lấy tkb khóa mới nhât*/ }, function(buffer) {
+    api.studentTimeTable.showTimeTable(semester /* giá trị value ở trên hoặc để undefined nếu lấy thời khóa biểu khóa mới nhât */ , function(scheduleData) {
         /*
-        trả về buffer của file excel, có thể lưu nó vào file
-        fs.writeFileSync('./duong_dan_file.xls', buffer);
+           Trả về mảng thời khóa biểu
         */
     })
+    //Hoặc
+    api.studyRegister.showTimeTable(semester)
+        .then()
+        .catch();
 ```
