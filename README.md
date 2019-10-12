@@ -140,3 +140,26 @@ api lấy thời khóa biểu
         .then()
         .catch();
 ```
+
+
+### api.studentProfile
+các api liên quan đến thông tin sinh viên
+
+#### api.studentProfile.show
+api show thông tin
+
+```javascript
+    api.studentProfile.show(function(error, information) {
+        /*
+        information object chứa thông tin về thông tin các học kỳ
+            displayName
+            studentCode
+            gender
+            birthday
+        */
+    })
+    //Hoặc
+    api.studyRegister.show()
+        .then()
+        .catch();
+```
