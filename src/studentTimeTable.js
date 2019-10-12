@@ -1,26 +1,44 @@
-module.exports = function({ request, utils, HOST_API }) {
-    return {
-        get$: () => request.get(`${HOST_API}/CMCSoft.IU.Web.Info/Reports/Form/StudentTimeTable.aspx`),
-        async getSemester(callback = f => f) {
-            let { $ , body} = await this.get$();
-            let semesters = Array.from($('select[name="drpSemester"] > option'))
-                .map(e => ({
-                    value: $(e).attr('value'),
-                    name: $(e).text()
-                }));
-            callback(semesters)
-        },
-        async downloadTimeTable({ semester }, callback = f => f) {
-            let { $ } = await this.get$();
-            let selectorData = utils.parseSelector($);
+const parser = require("parse-schedule-kma");
+module.exports = function({ api, utils, config }) {
+    const { HOST_API } = config;
+    const timeTableUrl = `${HOST_API}/CMCSoft.IU.Web.Info/Reports/Form/StudentTimeTable.aspx`;
+    function loadTimeTable() {
+        return utils.requestWithLogin({
+            url: timeTableUrl,
+            jar: api.jar
+        });
+    }
+    async function showSemesters(callback) {
+        try {
+            const $ = await loadTimeTable();
 
-            let initialFormData = utils.parseInitialFormData($);
+            const semesters = Array.from($('select[name="drpSemester"] > option')).map(e => ({
+                value: $(e).attr('value'),
+                name: $(e).text()
+            }
+
+            ));
+            if (typeof callback == "function") callback(null, semesters);
+            else return Promise.resolve(semesters);
+        }
+
+        catch (error) {
+            if (typeof callback == "function") callback(error);
+            else return Promise.reject(error);
+        }
+    }
+
+    async function showTimeTable(drpSemester, callback) {
+        try {
+            const $ = await loadTimeTable();
+            const selectorData = utils.parseSelector($);
+            const initialFormData = utils.parseInitialFormData($);
             selectorData.drpTerm = 1;
-            selectorData.drpSemester = semester || selectorData.drpSemester;
+            selectorData.drpSemester = drpSemester || selectorData.drpSemester;
             selectorData.drpType = 'B';
             selectorData.btnView = "Xuất file Excel";
-            request.post({
-                url: `${HOST_API}/CMCSoft.IU.Web.Info/Reports/Form/StudentTimeTable.aspx`,
+            const buffer = await utils.requestWithLogin.post({
+                url: timeTableUrl,
                 form: {
                     ...initialFormData,
                     ...selectorData
@@ -28,11 +46,22 @@ module.exports = function({ request, utils, HOST_API }) {
                 transform: function(body, response, resolveWithFullResponse) {
                     return resolveWithFullResponse ? response : body;
                 },
-                encoding: null
-            }).then(function(buffer) {
-                callback(buffer)
-            })
+                encoding: null,
+                jar: api.jar
+            });
+            const { scheduleData } = await parser(buffer);
+            if (typeof callback == "function") callback(null, scheduleData);
+            else return Promise.resolve(scheduleData);
+        } catch (error) {
+            if (typeof callback == "function") callback(error);
+            else return Promise.reject(error);
         }
 
+    }
+
+
+    return {
+        showSemesters,
+        showTimeTable,
     }
 }

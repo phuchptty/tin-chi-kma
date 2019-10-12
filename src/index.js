@@ -1,6 +1,6 @@
 const apiBuilds = [
     'studyRegister',
-    // 'studentTimeTable',
+    'studentTimeTable',
 ];
 const login = require("./login");
 module.exports = function({ utils, config }) {
